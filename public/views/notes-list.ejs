@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .notes-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .note-item {
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .note-item a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .note-item a:hover {
+      text-decoration: underline;
+    }
+    .note-preview {
+      color: #666;
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .no-notes {
+      color: #666;
+      font-style: italic;
+    }
+    .button-report {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 5px;
+      font-size: 0.8em;
+    }
+    .button-report:hover {
+      background-color: #e5c3c6;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Notes</h1>
+  
+  <% if (Object.keys(notes).length === 0) { %>
+    <p class="no-notes">No notes have been created yet.</p>
+  <% } else { %>
+    <ul class="notes-list">
+      <% Object.keys(notes).forEach(noteId => { %>
+        <li class="note-item">
+          <a href="/notes/<%= noteId %>"><%= noteId %></a>
+          <div class="note-preview">
+            <%= notes[noteId].length > 50 ? notes[noteId].substring(0, 50) + '...' : notes[noteId] %>
+          </div>
+          <a href="/report/<%= noteId %>" class="button-report">Report to Admin</a>
+        </li>
+      <% }); %>
+    </ul>
+  <% } %>
+  
+  <p><a href="/">Create a new note</a></p>
+
+</body>
+</html>
